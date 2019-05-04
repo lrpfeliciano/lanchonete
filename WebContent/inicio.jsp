@@ -14,7 +14,7 @@
 <jsp:useBean id="cont" 
 		class="br.com.lanchonete.dao.LancheDao">
 
-	<form method="post" action="LancheServlet">
+	<form method="post" action="processa_lanche">
 		Lanche:
 		<select name="cboLanche">
 			<c:forEach var="sanduba" items="${cont.listar() }">
@@ -24,9 +24,6 @@
 				</option>
 			
 			</c:forEach>
-		
-			
-			
 			
 		</select>
 		

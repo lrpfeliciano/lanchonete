@@ -37,4 +37,31 @@ public class LancheDao extends Conexao {
 		
 		return lista;
 	}
+	
+	public Lanche buscar(int codigo) {
+		Lanche sanduiche = null;
+		
+		String sql = "select * from lanche where codigo = ?";
+
+		try {
+			PreparedStatement ps = getConexao()
+					.prepareStatement(sql);
+			ps.setInt(1, codigo);
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				sanduiche = new Lanche();
+				sanduiche.setCodigo(rs.getInt("codigo"));
+				sanduiche.setNome(rs.getString("nome"));
+				sanduiche.setPreco(rs.getDouble("preco"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return sanduiche;
+		
+	}
 }

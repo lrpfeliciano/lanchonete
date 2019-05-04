@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.lanchonete.dao.LancheDao;
+import br.com.lanchonete.model.Lanche;
+
 /**
  * Servlet implementation class LancheServlet
  */
-@WebServlet("/LancheServlet")
+@WebServlet("/processa_lanche")
 public class LancheServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -42,20 +45,11 @@ public class LancheServlet extends HttpServlet {
 		int quantidade = Integer.parseInt(
 				request.getParameter("txtQuantidade") );
 		
-		double valor = 0;
-		if (codigo == 100) {
-			valor = 5 * quantidade;
-		} else if (codigo == 101) {
-			valor = 10 * quantidade;
-		} else if (codigo == 102) {
-			valor = 10.5 * quantidade;
-		} else if (codigo == 103) {
-			valor = 5 * quantidade;
-		} else if (codigo == 104) {
-			valor = 6 * quantidade;
-		} else {
-			valor = 4 * quantidade;
-		}
+
+		LancheDao dao = new LancheDao();
+		Lanche lanche = dao.buscar(codigo);
+		
+		double valor = lanche.getPreco() * quantidade;
 		
 		request.setAttribute("cardapio", valor);
 		
